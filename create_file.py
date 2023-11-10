@@ -1,6 +1,5 @@
 import os
 import sys
-from items import _get_platform
 from items import _get_home_dir_path
 from items import _get_current_dir_path
 
@@ -8,13 +7,20 @@ SLASH = "\\"
 
 
 def _hint():
+    """
+    With >touch user gets a hint
+    :return:
+    """
     print("\n Try: ")
     print("\tHelp: touch -h\n")
     print("\tSee example's: touch -e\n")
-    print(f"\tSystem: {_get_platform()}\n")
 
 
 def _help():
+    """
+    With >touch -h user gets a short description of the program
+    :return:
+    """
     print('\t[-h, --help] help')
     print('\t[-d, --dirpath] directory path')
     print('\t[-e, --example] example\'s')
@@ -50,6 +56,10 @@ def _help():
 
 
 def _example():
+    """
+    With >touch -e user gets a short example of how to use commands
+    :return:
+    """
     print("\n Example: ")
 
     print('\t- Rename file')
@@ -72,10 +82,14 @@ def _example():
 
 
 def _execute():
+    """
+    Logic of the program
+    :return:
+    """
     if sys.argv[1] in ['-d', '--dirpath']:
         with open(f"{sys.argv[2]}/{sys.argv[3]}", 'w') as file:
             file.write("")
-        print(f'\n\tFile created successfully: at [{sys.argv[2]}{SLASH}{sys.argv[3]}]')
+        print(f'\n\tFile created successfully at [{sys.argv[2]}{SLASH}{sys.argv[3]}]')
 
     elif sys.argv[1] in ['-a', '--abspath']:
         with open(f"{sys.argv[2]}", 'w') as file:
@@ -84,7 +98,7 @@ def _execute():
 
     elif sys.argv[1] in ['-r', '--rename']:
         os.rename(sys.argv[2], sys.argv[3])
-        print(f"\n\tFile successfully renamed: from [{sys.argv[2]}] to [{sys.argv[3]}]\n")
+        print(f"\n\tFile renamed successfully: from [{sys.argv[2]}] to [{sys.argv[3]}]\n")
 
     elif sys.argv[1] in ['-ch', '--currhomedir']:
         print(f"\n\tHome directory: {_get_home_dir_path()}\n")
@@ -95,7 +109,7 @@ def _execute():
         for arg in args:
             with open(arg, 'w') as file:
                 file.write("")
-        print(f'File(s) created')
+        print(f'File(s) created successfully at {_get_current_dir_path()}')
 
     else:
         with open(f"{sys.argv[1]}", 'w') as file:
@@ -104,6 +118,10 @@ def _execute():
 
 
 def main():
+    """
+    Main function
+    :return:
+    """
     if len(sys.argv) == 1:
         _hint()
     elif sys.argv[1] in ['-h', '--help']:
