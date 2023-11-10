@@ -22,7 +22,7 @@ def _help():
     print('\t[-ch, --currhomedir] see current and home directory')
     print('\t[-m, --multiple] create 2 or more files')
     print('\t[-a, --abspath] absolute path of the file')
-    print('\tLinux: /home/<your_username>/ \n\tWindows: C:/Users/<your_username>/ is the default absolute path')
+    print('\tWindows: C:/Users/<your_username>/ is the default absolute path')
     # ----------------------------------------------------------------------
     print("\n Usage: ")
 
