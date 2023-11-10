@@ -26,7 +26,6 @@ def _help():
     print('\t[-e, --example] example\'s')
     print('\t[-r, --rename] rename file')
     print('\t[-ch, --currhomedir] see current and home directory')
-    print('\t[-m, --multiple] create 2 or more files')
     print('\t[-a, --abspath] absolute path of the file')
     print('\tWindows: C:/Users/<your_username>/ is the default absolute path')
     # ----------------------------------------------------------------------
@@ -44,7 +43,7 @@ def _help():
     print("\ttouch <filename>")
 
     print("\t- Create all files")
-    print('\ttouch -m "<filename1 filename2 ...>"')
+    print('\ttouch <filename1 filename2 ...>')
 
     print("\t- Create file(s) in current directory")
     print("\ttouch -d <dirpath> <filename(s)>")
@@ -92,9 +91,15 @@ def _execute():
         print(f'\n\tFile created successfully at [{sys.argv[2]}{SLASH}{sys.argv[3]}]')
 
     elif sys.argv[1] in ['-a', '--abspath']:
-        with open(f"{sys.argv[2]}", 'w') as file:
-            file.write("")
-        print(f"\n\tFile created successfully: {sys.argv[2]}\n")
+        try:
+            with open(f"{_get_home_dir_path()}{SLASH}{sys.argv[2]}", 'w') as file:
+                file.write("")
+            print(f"\n\tFile created successfully: {sys.argv[2]}\n")
+        except PermissionError as pe:
+            print(pe.__str__())
+            print(f'\n\t{_get_home_dir_path()}{SLASH}{sys.argv[2]} is maybe a folder.')
+            print(f'\tTry: ')
+            print(f'\t{sys.argv[2]}{SLASH}filename.*\n')
 
     elif sys.argv[1] in ['-r', '--rename']:
         os.rename(sys.argv[2], sys.argv[3])
@@ -104,14 +109,14 @@ def _execute():
         print(f"\n\tHome directory: {_get_home_dir_path()}\n")
         print(f"\tCurrent directory: {_get_current_dir_path()}\n")
 
-    elif sys.argv[1] in ['-m', '--multiple']:
-        args = [arg for arg in sys.argv[2].split(" ")]
+    elif len(sys.argv) >= 3:  # min 2 parameter
+        args: list = sys.argv[1:]
         for arg in args:
             with open(arg, 'w') as file:
                 file.write("")
-        print(f'File(s) created successfully at {_get_current_dir_path()}')
+        print('\tFile(s) created successfully\n')
 
-    else:
+    else:  # with one parameter
         with open(f"{sys.argv[1]}", 'w') as file:
             file.write("")
         print(f"\n\tFile created successfully: {_get_current_dir_path()}{SLASH}{sys.argv[1]}\n")
