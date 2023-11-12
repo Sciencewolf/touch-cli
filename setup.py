@@ -10,14 +10,24 @@ SLASH = '\\'
 def _create_bat_file():
     bat_path: str = f'{_get_home_dir_path()}{SLASH}commands{SLASH}touch.bat'
     py_path: str = f'{_get_home_dir_path()}{SLASH}commands{SLASH}create_file.py'
+    py_items_path: str = f'{_get_home_dir_path()}{SLASH}commands{SLASH}items.py'
 
     if not os.path.exists(bat_path):
-        with (open(bat_path, 'w') as file, open(py_path, 'w') as create_file):
+        with (open(bat_path, 'w') as file,
+              open(py_path, 'w') as create_file,
+              open(py_items_path, 'w') as items_file):
             file.write("@echo off\n")
             file.write(f'python {py_path} %*')
 
-            r = requests.get('https://raw.githubusercontent.com/Sciencewolf/touch-cli/main/create_file.py')
-            create_file.write(r.text)
+            py_create_file_text = requests.get(
+                'https://raw.githubusercontent.com/Sciencewolf/touch-cli/main/create_file.py'
+            )
+            create_file.write(py_create_file_text.text)
+
+            py_items_file_text = requests.get(
+                'https://raw.githubusercontent.com/Sciencewolf/touch-cli/main/items.py'
+            )
+            items_file.write(py_items_file_text.text)
 
         w = win10toast.ToastNotifier()
         w.show_toast("Alert!", 'Successfully installed!', duration=5, threaded=True)
