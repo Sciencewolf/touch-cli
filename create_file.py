@@ -21,7 +21,8 @@ def _help():
     With >touch -h user gets a short description of the program
     :return:
     """
-    print('\t[-h, --help] help')
+    print("touch-cli v1.0")
+    print('\n\t[-h, --help] help')
     print('\t[-d, --dirpath] directory path')
     print('\t[-e, --example] example\'s')
     print('\t[-r, --rename] rename file')
