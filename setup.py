@@ -1,7 +1,6 @@
 import os
 import requests
 
-import win10toast
 from items import _get_home_dir_path
 
 SLASH = '\\'
@@ -29,12 +28,9 @@ def _create_bat_file():
             )
             items_file.write(py_items_file_text.text)
 
-        w = win10toast.ToastNotifier()
-        w.show_toast("Alert!", 'Successfully installed!', duration=5, threaded=True)
         os.system('start /B start cmd.exe @cmd /k touch -h')
     else:
-        w = win10toast.ToastNotifier()
-        w.show_toast("Already installed!", "Try 'touch -h'", duration=5, threaded=True)
+        print("Error!")
 
 
 def _add_path():
@@ -42,9 +38,6 @@ def _add_path():
     new_directory = f"{_get_home_dir_path()}{SLASH}commands{SLASH}"
     new_path = f'{new_directory};{current_path}'
     os.environ['PATH'] = new_path
-
-    w = win10toast.ToastNotifier()
-    w.show_toast("Added to PATH! Type 'touch -h'", duration=5, threaded=True)
 
 
 _create_bat_file()
