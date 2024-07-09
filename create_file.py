@@ -89,25 +89,25 @@ def _execute():
     if sys.argv[1] in ['-d', '--dirpath']:
         with open(f"{sys.argv[2]}/{sys.argv[3]}", 'w') as file:
             file.write("")
-        print(f'\n\tFile created successfully at [{sys.argv[2]}{SLASH}{sys.argv[3]}]')
+        print(f'\tFile created successfully at [{sys.argv[2]}{SLASH}{sys.argv[3]}]')
 
     elif sys.argv[1] in ['-a', '--abspath']:
         try:
             with open(f"{_get_home_dir_path()}{SLASH}{sys.argv[2]}", 'w') as file:
                 file.write("")
-            print(f"\n\tFile created successfully: {sys.argv[2]}\n")
+            print(f"\tFile created successfully: {sys.argv[2]}\n")
         except PermissionError as pe:
             print(pe.__str__())
-            print(f'\n\t{_get_home_dir_path()}{SLASH}{sys.argv[2]} is maybe a folder.')
+            print(f'\t{_get_home_dir_path()}{SLASH}{sys.argv[2]} is maybe a folder.')
             print(f'\tTry: ')
             print(f'\t{sys.argv[2]}{SLASH}filename.*\n')
 
     elif sys.argv[1] in ['-r', '--rename']:
         os.rename(sys.argv[2], sys.argv[3])
-        print(f"\n\tFile renamed successfully: from [{sys.argv[2]}] to [{sys.argv[3]}]\n")
+        print(f"\tFile renamed successfully: from [{sys.argv[2]}] to [{sys.argv[3]}]\n")
 
     elif sys.argv[1] in ['-ch', '--currhomedir']:
-        print(f"\n\tHome directory: {_get_home_dir_path()}\n")
+        print(f"\tHome directory: {_get_home_dir_path()}\n")
         print(f"\tCurrent directory: {_get_current_dir_path()}\n")
 
     elif len(sys.argv) >= 3:  # min 2 parameter
@@ -115,12 +115,12 @@ def _execute():
         for arg in args:
             with open(arg, 'w') as file:
                 file.write("")
-        print('\tFile(s) created successfully\n')
+        print(f'\tFile(s) created successfully at {_get_current_dir_path()}')
 
     else:  # with one parameter
         with open(f"{sys.argv[1]}", 'w') as file:
             file.write("")
-        print(f"\n\tFile created successfully: {_get_current_dir_path()}{SLASH}{sys.argv[1]}\n")
+        print(f"\tFile created successfully at {_get_current_dir_path()}")
 
 
 def main():
